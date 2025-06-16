@@ -1,13 +1,21 @@
 package com.manishjajoriya.subshub.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.sql.Date;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This model is used to store user data like which service he is subscribed.
  */
+@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDataModel {
+  @Id
   private int sid;
   private int uid;
   private String serviceProvider;
@@ -17,7 +25,7 @@ public class UserDataModel {
   private Date startBillingDate;
   private Date nextBillingDate;
   private int months;
-  private boolean isActive;
-  private boolean isDeleted;
-  private boolean isCanceled;
+  private boolean isActive = true;
+  private boolean isDeleted = false;
+  private boolean isCanceled = false;
 }
