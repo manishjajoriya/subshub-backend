@@ -1,4 +1,4 @@
-package com.manishjajoriya.subshub.model;
+package com.manishjajoriya.subshub.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServiceModel {
+public class ServiceEntity {
   @Id
-  public int id;
+  public int sid;
   private String provider;
   private String description;
   private List<String> plans;

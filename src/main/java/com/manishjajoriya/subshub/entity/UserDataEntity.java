@@ -1,4 +1,4 @@
-package com.manishjajoriya.subshub.model;
+package com.manishjajoriya.subshub.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDataModel {
+public class UserDataEntity {
   @Id
   private int sid;
   private int uid;
