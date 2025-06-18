@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,6 @@ public class UserEntity {
   @Column(unique = true)
   private String email;
   private String password;
-  private List<String> role;
-  private String region;
+  private List<String> role = List.of("USER");
+  private String region = "india";
 }

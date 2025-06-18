@@ -45,7 +45,7 @@ public class PublicController {
     return "Data loaded Successfully";
   }
 
-  @PostMapping("/register")
+  @PostMapping("/sign-up")
   public boolean signUp(@RequestBody UserEntity user) {
     log.info("Register User");
     return (userService.signUp(user));
