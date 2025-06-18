@@ -1,7 +1,7 @@
 package com.manishjajoriya.subshub.service;
 
-import com.manishjajoriya.subshub.model.DataGenerator;
-import com.manishjajoriya.subshub.model.ServiceModel;
+import com.manishjajoriya.subshub.entity.DataGenerator;
+import com.manishjajoriya.subshub.entity.ServiceEntity;
 import com.manishjajoriya.subshub.repository.ServiceDataRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +18,15 @@ public class ServiceDataService {
   
 
   public void loadData() {
-    List<ServiceModel> serviceData = DataGenerator.getSampleServices();
+    List<ServiceEntity> serviceData = DataGenerator.getSampleServices();
     serviceDataRepo.saveAll(serviceData);
   }
 
-  public List<ServiceModel> getAllServices() {
+  public List<ServiceEntity> getAllServices() {
     return serviceDataRepo.findAll();
   }
 
-  public ServiceModel getServiceById(int id) {
+  public ServiceEntity getServiceById(int id) {
     return serviceDataRepo.findById(id).orElse(null);
   }
 }
