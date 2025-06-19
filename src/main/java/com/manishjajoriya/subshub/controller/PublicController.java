@@ -1,14 +1,20 @@
 package com.manishjajoriya.subshub.controller;
 
 import com.manishjajoriya.subshub.entity.UserEntity;
+import com.manishjajoriya.subshub.service.CustomUserDetails;
+import com.manishjajoriya.subshub.service.CustomUserDetailsService;
 import com.manishjajoriya.subshub.service.ServiceDataService;
 import com.manishjajoriya.subshub.service.UserDataService;
 import com.manishjajoriya.subshub.service.UserService;
+import com.manishjajoriya.subshub.utils.JwtUtil;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,13 +30,20 @@ public class PublicController {
   private final UserService userService;
   private final UserDataService userDataService;
   private final ServiceDataService serviceDataService;
+  private final AuthenticationManager authenticationManager;
+  private final JwtUtil jwtUtil;
 
   @Autowired
-  PublicController(UserService userService, UserDataService userDataService,
-                   ServiceDataService serviceDataService) {
+  PublicController(UserService userService,
+                   UserDataService userDataService,
+                   ServiceDataService serviceDataService,
+                   AuthenticationManager authenticationManager,
+                   JwtUtil jwtUtil) {
     this.userService = userService;
     this.userDataService = userDataService;
     this.serviceDataService = serviceDataService;
+    this.authenticationManager = authenticationManager;
+    this.jwtUtil = jwtUtil;
   }
 
   @GetMapping("/health-check")
@@ -51,5 +64,22 @@ public class PublicController {
   public ResponseEntity<?> signUp(@RequestBody UserEntity user) {
     log.info("Register User");
     return userService.signUp(user);
+  }
+
+  @PostMapping("/login")
+  public ResponseEntity<?> login(@RequestBody UserEntity user) {
+    try {
+      Authentication auth = authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+
+      CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
+      String uuid = customUserDetails.getUid().toString();
+      String jwt = jwtUtil.generateToken(uuid);
+      return ResponseEntity.ok(jwt);
+    } catch (Exception e) {
+      log.error("Exception occur while createAuthenticationToken ", e);
+      return new ResponseEntity<>("Incorrect username or password", HttpStatus.BAD_REQUEST);
+    }
+
   }
 }

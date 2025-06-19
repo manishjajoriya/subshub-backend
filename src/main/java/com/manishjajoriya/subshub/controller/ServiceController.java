@@ -23,8 +23,6 @@ public class ServiceController {
     this.userDataService = userDataService;
   }
 
-
-
   @GetMapping("services")
   public List<ServiceEntity> getServiceData() {
     return serviceDataService.getAllServices();

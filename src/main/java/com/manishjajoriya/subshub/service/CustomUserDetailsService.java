@@ -3,11 +3,11 @@ package com.manishjajoriya.subshub.service;
 import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.repository.UserRepo;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,13 +24,21 @@ public class CustomUserDetailsService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity userModel =
-        userRepo.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
-    List<GrantedAuthority> grantedAuthorities = userModel.getRole().stream().map(
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    UserEntity user =
+        userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+    List<GrantedAuthority> grantedAuthorities = user.getRole().stream().map(
         SimpleGrantedAuthority::new).collect(
         Collectors.toList());
-    return new User(userModel.getEmail(), userModel.getPassword(), grantedAuthorities);
+    return new CustomUserDetails(user, grantedAuthorities);
+  }
+
+  public UserDetails loadUserById(UUID id) throws UsernameNotFoundException {
+    UserEntity user = userRepo.findByUid(id).orElseThrow(() -> new UsernameNotFoundException(id.toString()));
+    List<GrantedAuthority> grantedAuthorities = user.getRole().stream().map(
+        SimpleGrantedAuthority::new).collect(
+        Collectors.toList());
+    return new CustomUserDetails(user, grantedAuthorities);
   }
 
 }

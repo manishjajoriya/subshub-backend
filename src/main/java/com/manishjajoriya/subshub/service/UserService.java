@@ -2,6 +2,7 @@ package com.manishjajoriya.subshub.service;
 
 import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.repository.UserRepo;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,9 @@ public class UserService {
     } else {
       String encodedPassword = passwordEncoder.encode(user.getPassword());
       user.setPassword(encodedPassword);
+      user.setUid(UUID.randomUUID());
       userRepo.save(user);
-      return  new ResponseEntity<>(user.getEmail(), HttpStatus.OK);
+      return new ResponseEntity<>(user.getEmail(), HttpStatus.OK);
     }
   }
 }
