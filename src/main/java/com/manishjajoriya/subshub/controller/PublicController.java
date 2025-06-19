@@ -2,7 +2,6 @@ package com.manishjajoriya.subshub.controller;
 
 import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.service.CustomUserDetails;
-import com.manishjajoriya.subshub.service.CustomUserDetailsService;
 import com.manishjajoriya.subshub.service.ServiceDataService;
 import com.manishjajoriya.subshub.service.UserDataService;
 import com.manishjajoriya.subshub.service.UserService;

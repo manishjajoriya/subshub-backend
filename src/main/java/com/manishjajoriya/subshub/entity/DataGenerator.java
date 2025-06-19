@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * A utility class to generate temporary/sample data for services.
@@ -58,34 +59,42 @@ public class DataGenerator {
 
     // User 1 (uid=101)
     // 1. Active Spotify Subscription (Monthly)
-    userData.add(new UserDataEntity(1, 101, "Spotify", "9.99",
-        "Music Streaming", "USD", Date.valueOf(today.minusMonths(6)),
-        Date.valueOf(today.plusDays(10)), 1, true, false, false));
+    userData.add(
+        new UserDataEntity(1, UUID.fromString("3494b435-5004-4607-8d45-28de28ca4a31"), "Spotify",
+            "9.99",
+            "Music Streaming", "USD", Date.valueOf(today.minusMonths(6)),
+            Date.valueOf(today.plusDays(10)), 1, true, false, false));
 
     // 2. Active Netflix Subscription (Monthly)
-    userData.add(new UserDataEntity(2, 101, "Netflix", "15.49",
-        "Video Streaming", "USD", Date.valueOf(today.minusYears(1)),
-        Date.valueOf(today.plusDays(20)), 1, true, false, false));
+    userData.add(
+        new UserDataEntity(2, UUID.fromString("3494b435-5004-4607-8d45-28de28ca4a31"), "Netflix",
+            "15.49",
+            "Video Streaming", "USD", Date.valueOf(today.minusYears(1)),
+            Date.valueOf(today.plusDays(20)), 1, true, false, false));
 
     // 3. Canceled Microsoft 365 Subscription
-    userData.add(new UserDataEntity(3, 101, "Microsoft 365", "6.99",
+    userData.add(new UserDataEntity(3, UUID.fromString("3494b435-5004-4607-8d45-28de28ca4a31"),
+        "Microsoft 365", "6.99",
         "Productivity", "USD", Date.valueOf(today.minusMonths(3)),
         Date.valueOf(today.minusMonths(2).plusDays(5)), 1, false, false,
         true));
 
     // User 2 (uid=102)
     // 4. Active YouTube Premium Subscription (Monthly)
-    userData.add(new UserDataEntity(4, 102, "YouTube Premium", "11.99",
+    userData.add(new UserDataEntity(4, UUID.fromString("b3f743bc-49a7-4051-9783-fef51c5ec808"),
+        "YouTube Premium", "11.99",
         "Video Streaming", "USD", Date.valueOf(today.minusMonths(2)),
         Date.valueOf(today.plusDays(15)), 1, true, false, false));
 
     // 5. Active Google Drive Subscription (Yearly)
-    userData.add(new UserDataEntity(5, 102, "Google Drive", "29.99",
+    userData.add(new UserDataEntity(5, UUID.fromString("b3f743bc-49a7-4051-9783-fef51c5ec808"),
+        "Google Drive", "29.99",
         "Cloud Storage", "USD", Date.valueOf(today.minusYears(2)),
         Date.valueOf(today.plusMonths(11)), 12, true, false, false));
 
     // 6. Deleted (Old) Subscription for User 2
-    userData.add(new UserDataEntity(6, 102, "Adobe Creative Cloud", "52.99",
+    userData.add(new UserDataEntity(6, UUID.fromString("b3f743bc-49a7-4051-9783-fef51c5ec808"),
+        "Adobe Creative Cloud", "52.99",
         "Productivity", "USD", Date.valueOf(today.minusYears(3)),
         Date.valueOf(today.minusYears(2).minusMonths(1)), 1, false, true,
         true));
