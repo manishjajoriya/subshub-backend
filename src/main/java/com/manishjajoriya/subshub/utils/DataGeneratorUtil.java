@@ -1,5 +1,7 @@
-package com.manishjajoriya.subshub.entity;
+package com.manishjajoriya.subshub.utils;
 
+import com.manishjajoriya.subshub.entity.ServiceEntity;
+import com.manishjajoriya.subshub.entity.UserDataEntity;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.UUID;
 /**
  * A utility class to generate temporary/sample data for services.
  */
-public class DataGenerator {
+public class DataGeneratorUtil {
 
   /**
    * Creates and returns a list of sample ServiceEntity objects.

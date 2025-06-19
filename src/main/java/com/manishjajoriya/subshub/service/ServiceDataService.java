@@ -1,6 +1,6 @@
 package com.manishjajoriya.subshub.service;
 
-import com.manishjajoriya.subshub.entity.DataGenerator;
+import com.manishjajoriya.subshub.utils.DataGeneratorUtil;
 import com.manishjajoriya.subshub.entity.ServiceEntity;
 import com.manishjajoriya.subshub.repository.ServiceDataRepo;
 import java.util.List;
@@ -18,7 +18,7 @@ public class ServiceDataService {
   
 
   public void loadData() {
-    List<ServiceEntity> serviceData = DataGenerator.getSampleServices();
+    List<ServiceEntity> serviceData = DataGeneratorUtil.getSampleServices();
     serviceDataRepo.saveAll(serviceData);
   }
 
