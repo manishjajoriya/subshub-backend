@@ -3,6 +3,7 @@ package com.manishjajoriya.subshub.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ServiceEntity {
   @Id
-  public int sid;
+  public UUID sid;
   private String provider;
   private String description;
   private List<String> plans;

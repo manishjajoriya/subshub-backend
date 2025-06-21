@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDataEntity {
   @Id
-  private int sid;
+  private UUID did;
+  private UUID sid;
   private UUID uid;
   private String serviceProvider;
   private String servicePrice;

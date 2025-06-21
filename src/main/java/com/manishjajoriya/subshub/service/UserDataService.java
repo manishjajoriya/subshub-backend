@@ -1,6 +1,5 @@
 package com.manishjajoriya.subshub.service;
 
-import com.manishjajoriya.subshub.utils.DataGeneratorUtil;
 import com.manishjajoriya.subshub.entity.UserDataEntity;
 import com.manishjajoriya.subshub.repository.UserDataRepo;
 import java.util.List;
@@ -21,8 +20,4 @@ public class UserDataService {
     return userDataRepo.findAllByUid(uid);
   }
 
-  public void loadData() {
-    List<UserDataEntity> userData = DataGeneratorUtil.getSampleUserData();
-    userDataRepo.saveAll(userData);
-  }
 }

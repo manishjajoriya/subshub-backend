@@ -58,14 +58,6 @@ public class PublicController {
     return "health-check : OK";
   }
 
-  @PutMapping("/load-data")
-  @Transactional
-  public String loadData() {
-    serviceDataService.loadData();
-    userDataService.loadData();
-    return "Data loaded Successfully";
-  }
-
   @PostMapping("/sign-up")
   public ResponseEntity<?> signUp(@Valid @RequestBody UserEntity user) {
     log.info("Register User");
