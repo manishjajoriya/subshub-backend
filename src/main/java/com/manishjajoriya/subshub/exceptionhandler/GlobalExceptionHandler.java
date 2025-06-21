@@ -3,6 +3,7 @@ package com.manishjajoriya.subshub.exceptionhandler;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.password.CompromisedPasswordException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,14 @@ public class GlobalExceptionHandler {
       String errorMessage = error.getDefaultMessage();
       errors.put(fieldName, errorMessage);
     });
+    return errors;
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(CompromisedPasswordException.class)
+  public Map<String, String> handleCompromisedPasswordException(CompromisedPasswordException ex) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("message", ex.getMessage());
     return errors;
   }
 }

@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.password.CompromisedPasswordChecker;
+import org.springframework.security.authentication.password.CompromisedPasswordDecision;
+import org.springframework.security.authentication.password.CompromisedPasswordException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,18 +35,21 @@ public class PublicController {
   private final ServiceDataService serviceDataService;
   private final AuthenticationManager authenticationManager;
   private final JwtUtil jwtUtil;
+  private final CompromisedPasswordChecker compromisedPasswordChecker;
 
   @Autowired
   PublicController(UserService userService,
                    UserDataService userDataService,
                    ServiceDataService serviceDataService,
                    AuthenticationManager authenticationManager,
-                   JwtUtil jwtUtil) {
+                   JwtUtil jwtUtil,
+                   CompromisedPasswordChecker compromisedPasswordChecker) {
     this.userService = userService;
     this.userDataService = userDataService;
     this.serviceDataService = serviceDataService;
     this.authenticationManager = authenticationManager;
     this.jwtUtil = jwtUtil;
+    this.compromisedPasswordChecker = compromisedPasswordChecker;
   }
 
   @GetMapping("/health-check")
@@ -63,7 +69,13 @@ public class PublicController {
   @PostMapping("/sign-up")
   public ResponseEntity<?> signUp(@Valid @RequestBody UserEntity user) {
     log.info("Register User");
+    CompromisedPasswordDecision decision = compromisedPasswordChecker.check(user.getPassword());
+    if (decision.isCompromised()) {
+      throw new CompromisedPasswordException("This provided password is compromised and cannot "
+          + "be used.");
+    }
     return userService.signUp(user);
+
   }
 
   @PostMapping("/login")
