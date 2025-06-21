@@ -34,7 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
   }
 
   public UserDetails loadUserById(UUID id) throws UsernameNotFoundException {
-    UserEntity user = userRepo.findByUid(id).orElseThrow(() -> new UsernameNotFoundException(id.toString()));
+    UserEntity user = userRepo.findByUid(id).orElseThrow(() ->
+        new UsernameNotFoundException(id.toString()));
     List<GrantedAuthority> grantedAuthorities = user.getRole().stream().map(
         SimpleGrantedAuthority::new).collect(
         Collectors.toList());

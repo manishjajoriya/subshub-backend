@@ -7,6 +7,7 @@ import com.manishjajoriya.subshub.service.UserDataService;
 import com.manishjajoriya.subshub.service.UserService;
 import com.manishjajoriya.subshub.utils.JwtUtil;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,7 +61,7 @@ public class PublicController {
   }
 
   @PostMapping("/sign-up")
-  public ResponseEntity<?> signUp(@RequestBody UserEntity user) {
+  public ResponseEntity<?> signUp(@Valid @RequestBody UserEntity user) {
     log.info("Register User");
     return userService.signUp(user);
   }
@@ -79,6 +80,5 @@ public class PublicController {
       log.error("Exception occur while createAuthenticationToken ", e);
       return new ResponseEntity<>("Incorrect username or password", HttpStatus.BAD_REQUEST);
     }
-
   }
 }

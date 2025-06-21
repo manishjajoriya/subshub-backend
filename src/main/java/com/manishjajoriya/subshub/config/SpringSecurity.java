@@ -27,7 +27,7 @@ public class SpringSecurity {
   private final JwtFilter jwtFilter;
 
   @Autowired
-  public SpringSecurity(CustomUserDetailsService customUserDetailsService,  JwtFilter jwtFilter) {
+  public SpringSecurity(CustomUserDetailsService customUserDetailsService, JwtFilter jwtFilter) {
     this.customUserDetailsService = customUserDetailsService;
     this.jwtFilter = jwtFilter;
   }
@@ -40,6 +40,8 @@ public class SpringSecurity {
     http.sessionManagement(session ->
         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    http.formLogin(AbstractHttpConfigurer::disable);
+    http.formLogin(AbstractHttpConfigurer::disable);
     http.csrf(AbstractHttpConfigurer::disable);
     return http.build();
   }
