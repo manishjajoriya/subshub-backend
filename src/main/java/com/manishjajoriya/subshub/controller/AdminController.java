@@ -1,7 +1,7 @@
 package com.manishjajoriya.subshub.controller;
 
-import com.manishjajoriya.subshub.entity.UserDataEntity;
 import com.manishjajoriya.subshub.entity.UserEntity;
+import com.manishjajoriya.subshub.service.SubscriptionService;
 import com.manishjajoriya.subshub.service.UserDataService;
 import com.manishjajoriya.subshub.service.UserService;
 import java.util.List;
@@ -20,11 +20,14 @@ public class AdminController {
 
   private final UserService userService;
   private final UserDataService userDataService;
+  private final SubscriptionService subscriptionService;
 
   @Autowired
-  public AdminController(UserService userService, UserDataService userDataService) {
+  public AdminController(UserService userService, UserDataService userDataService,
+                         SubscriptionService subscriptionService) {
     this.userService = userService;
     this.userDataService = userDataService;
+    this.subscriptionService = subscriptionService;
   }
 
   @GetMapping("/all-users")
@@ -38,11 +41,12 @@ public class AdminController {
 
   @GetMapping("/all-user-data")
   public ResponseEntity<?> getAllUserData() {
-    List<UserDataEntity> userData = userDataService.getAllUserData();
-    if (!userData.isEmpty()) {
-      return new ResponseEntity<>(userData, HttpStatus.OK);
-    }
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(userDataService.getAllUserData(), HttpStatus.OK);
+  }
+
+  @GetMapping("/all-subscription")
+  public ResponseEntity<?> getAllSubscriptions() {
+    return new ResponseEntity<>(subscriptionService.getAllServices(), HttpStatus.OK);
   }
 
   @PostMapping("/add-admin-user")

@@ -52,7 +52,8 @@ public class UserService {
       user.setPassword(encodedPassword);
       user.setRole(List.of("USER", "ADMIN"));
       userRepo.save(user);
-      return new ResponseEntity<>(user.getEmail(), HttpStatus.OK);
+      return new ResponseEntity<>("Created a new admin account + " + user.getEmail(),
+          HttpStatus.OK);
     }
   }
 }

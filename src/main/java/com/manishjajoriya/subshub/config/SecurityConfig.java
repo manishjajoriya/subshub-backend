@@ -38,7 +38,7 @@ public class SecurityConfig {
     http.authorizeHttpRequests(auth -> auth
         .requestMatchers("/public/**").permitAll()
         .requestMatchers("/admin/**").hasRole("ADMIN")
-        .requestMatchers("/user/**").authenticated()
+        .requestMatchers("/user/**", "/service/**").authenticated()
         .anyRequest().denyAll());
     http.sessionManagement(session ->
         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

@@ -1,10 +1,12 @@
 package com.manishjajoriya.subshub.repository;
 
 import com.manishjajoriya.subshub.entity.SubscriptionEntity;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubscriptionRepo extends JpaRepository<SubscriptionEntity, Integer> {
 
+  List<SubscriptionEntity> findByProviderContainingIgnoreCase(String provider);
 }
