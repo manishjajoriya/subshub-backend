@@ -1,7 +1,7 @@
 package com.manishjajoriya.subshub.controller;
 
-import com.manishjajoriya.subshub.entity.UserDataEntity;
 import com.manishjajoriya.subshub.config.CustomUserDetails;
+import com.manishjajoriya.subshub.entity.UserDataEntity;
 import com.manishjajoriya.subshub.service.UserDataService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,7 @@ public class UserController {
   public ResponseEntity<?> getUserData() {
     CustomUserDetails userDetails =
         (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
     List<UserDataEntity> data = userDataService.getUserData(userDetails.getUid());
-    if (data != null && !data.isEmpty()) {
-      return (ResponseEntity<?>) data;
-    }
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(data, HttpStatus.OK);
   }
 }
