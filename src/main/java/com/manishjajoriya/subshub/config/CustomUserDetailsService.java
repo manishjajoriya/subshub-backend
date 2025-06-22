@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         userRepo.findByEmail(email.trim().toLowerCase())
             .orElseThrow(() -> new UsernameNotFoundException(email));
     List<GrantedAuthority> grantedAuthorities = user.getRole().stream().map(
-        SimpleGrantedAuthority::new).collect(
+        role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(
         Collectors.toList());
     return new CustomUserDetails(user, grantedAuthorities);
   }
