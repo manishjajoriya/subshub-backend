@@ -1,4 +1,4 @@
-package com.manishjajoriya.subshub.service;
+package com.manishjajoriya.subshub.config;
 
 import com.manishjajoriya.subshub.entity.UserEntity;
 import java.util.Collection;

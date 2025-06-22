@@ -1,7 +1,7 @@
 package com.manishjajoriya.subshub.filter;
 
-import com.manishjajoriya.subshub.service.CustomUserDetails;
-import com.manishjajoriya.subshub.service.CustomUserDetailsService;
+import com.manishjajoriya.subshub.config.CustomUserDetails;
+import com.manishjajoriya.subshub.config.CustomUserDetailsService;
 import com.manishjajoriya.subshub.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

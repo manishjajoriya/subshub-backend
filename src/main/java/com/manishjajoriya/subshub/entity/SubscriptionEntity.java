@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServicesEntity {
+public class SubscriptionEntity {
   @Id
   public UUID sid;
   private String provider;

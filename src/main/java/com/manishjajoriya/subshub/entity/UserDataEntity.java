@@ -20,10 +20,11 @@ public class UserDataEntity {
   private UUID did;
   private UUID sid;
   private UUID uid;
-  private String serviceProvider;
-  private String servicePrice;
+  private String subscriptionProvider;
+  private String subscriptionPrice;
   private String category;
   private String currency;
+  private String iconUrl;
   private Date startBillingDate;
   private Date nextBillingDate;
   private int months;

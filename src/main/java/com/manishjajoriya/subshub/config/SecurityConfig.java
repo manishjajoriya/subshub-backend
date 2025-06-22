@@ -22,13 +22,13 @@ import org.springframework.security.web.authentication.password.HaveIBeenPwnedRe
 
 @Configuration
 @EnableWebSecurity
-public class SpringSecurity {
+public class SecurityConfig {
 
   private final CustomUserDetailsService customUserDetailsService;
   private final JwtFilter jwtFilter;
 
   @Autowired
-  public SpringSecurity(CustomUserDetailsService customUserDetailsService, JwtFilter jwtFilter) {
+  public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtFilter jwtFilter) {
     this.customUserDetailsService = customUserDetailsService;
     this.jwtFilter = jwtFilter;
   }

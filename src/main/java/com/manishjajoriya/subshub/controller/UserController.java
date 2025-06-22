@@ -1,7 +1,7 @@
 package com.manishjajoriya.subshub.controller;
 
 import com.manishjajoriya.subshub.entity.UserDataEntity;
-import com.manishjajoriya.subshub.service.CustomUserDetails;
+import com.manishjajoriya.subshub.config.CustomUserDetails;
 import com.manishjajoriya.subshub.service.UserDataService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -20,4 +20,7 @@ public class UserDataService {
     return userDataRepo.findAllByUid(uid);
   }
 
+  public List<UserDataEntity> getAllUserData() {
+    return userDataRepo.findAll();
+  }
 }
