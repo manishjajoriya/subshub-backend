@@ -25,12 +25,12 @@ public class UserEntity {
   private String name;
   @Column(unique = true)
   @NotNull(message = "email is mandatory")
-  @NotBlank
+  @NotBlank(message = "email is mandatory")
   @Email(message = "enter correct email")
   private String email;
   @NotNull
   @NotBlank
   private String password;
-  private List<String> role = List.of("USER");
+  private List<String> role;
   private String region;
 }

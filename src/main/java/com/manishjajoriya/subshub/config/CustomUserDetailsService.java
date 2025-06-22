@@ -26,7 +26,8 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     UserEntity user =
-        userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+        userRepo.findByEmail(email.trim().toLowerCase())
+            .orElseThrow(() -> new UsernameNotFoundException(email));
     List<GrantedAuthority> grantedAuthorities = user.getRole().stream().map(
         SimpleGrantedAuthority::new).collect(
         Collectors.toList());
@@ -37,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     UserEntity user = userRepo.findByUid(id).orElseThrow(() ->
         new UsernameNotFoundException(id.toString()));
     List<GrantedAuthority> grantedAuthorities = user.getRole().stream().map(
-        SimpleGrantedAuthority::new).collect(
+        role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(
         Collectors.toList());
     return new CustomUserDetails(user, grantedAuthorities);
   }

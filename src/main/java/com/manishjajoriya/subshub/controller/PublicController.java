@@ -2,11 +2,8 @@ package com.manishjajoriya.subshub.controller;
 
 import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.service.CustomUserDetails;
-import com.manishjajoriya.subshub.service.ServiceDataService;
-import com.manishjajoriya.subshub.service.UserDataService;
 import com.manishjajoriya.subshub.service.UserService;
 import com.manishjajoriya.subshub.utils.JwtUtil;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,6 @@ import org.springframework.security.authentication.password.CompromisedPasswordE
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,22 +27,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class PublicController {
 
   private final UserService userService;
-  private final UserDataService userDataService;
-  private final ServiceDataService serviceDataService;
   private final AuthenticationManager authenticationManager;
   private final JwtUtil jwtUtil;
   private final CompromisedPasswordChecker compromisedPasswordChecker;
 
   @Autowired
   PublicController(UserService userService,
-                   UserDataService userDataService,
-                   ServiceDataService serviceDataService,
                    AuthenticationManager authenticationManager,
                    JwtUtil jwtUtil,
                    CompromisedPasswordChecker compromisedPasswordChecker) {
     this.userService = userService;
-    this.userDataService = userDataService;
-    this.serviceDataService = serviceDataService;
     this.authenticationManager = authenticationManager;
     this.jwtUtil = jwtUtil;
     this.compromisedPasswordChecker = compromisedPasswordChecker;

@@ -1,7 +1,6 @@
 package com.manishjajoriya.subshub.config;
 
 import com.manishjajoriya.subshub.filter.JwtFilter;
-import com.manishjajoriya.subshub.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,9 +35,11 @@ public class SpringSecurity {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(
-        authorizeRequests -> authorizeRequests.requestMatchers("/public/**").permitAll()
-            .anyRequest().authenticated());
+    http.authorizeHttpRequests(auth -> auth
+        .requestMatchers("/public/**").permitAll()
+        .requestMatchers("/admin/**").hasRole("ADMIN")
+        .requestMatchers("/user/**").authenticated()
+        .anyRequest().denyAll());
     http.sessionManagement(session ->
         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
