@@ -17,7 +17,7 @@ public class UserDataService {
   }
 
   public List<UserDataEntity> getUserData(UUID uid) {
-    return userDataRepo.findAllByUid(uid);
+    return userDataRepo.findByUser_Uid(uid);
   }
 
   public List<UserDataEntity> getAllUserData() {

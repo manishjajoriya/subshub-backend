@@ -2,6 +2,8 @@ package com.manishjajoriya.subshub.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.sql.Date;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -18,8 +20,8 @@ import lombok.NoArgsConstructor;
 public class UserDataEntity {
   @Id
   private UUID did;
-  private UUID sid;
-  private UUID uid;
+  @ManyToOne()
+  private UserEntity user;
   private String subscriptionProvider;
   private String subscriptionPrice;
   private String category;

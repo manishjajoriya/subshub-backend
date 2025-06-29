@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserDataRepo extends JpaRepository<UserDataEntity, Integer> {
-  List<UserDataEntity> findAllByUid(UUID uuid);
+  List<UserDataEntity> findByUser_Uid(UUID userUid);
 }
