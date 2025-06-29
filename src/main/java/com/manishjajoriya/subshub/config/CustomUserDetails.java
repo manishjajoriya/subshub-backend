@@ -3,10 +3,12 @@ package com.manishjajoriya.subshub.config;
 import com.manishjajoriya.subshub.entity.UserEntity;
 import java.util.Collection;
 import java.util.UUID;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
+  @Getter
   private final UserEntity user;
   private final Collection<? extends GrantedAuthority> authorities;
 

@@ -1,6 +1,7 @@
 package com.manishjajoriya.subshub.controller;
 
 import com.manishjajoriya.subshub.config.CustomUserDetails;
+import com.manishjajoriya.subshub.dto.UserDataDto;
 import com.manishjajoriya.subshub.entity.UserDataEntity;
 import com.manishjajoriya.subshub.service.UserDataService;
 import java.util.List;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,5 +32,13 @@ public class UserController {
         (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     List<UserDataEntity> data = userDataService.getUserData(userDetails.getUid());
     return new ResponseEntity<>(data, HttpStatus.OK);
+  }
+
+  @PostMapping("/add-new-service")
+  public ResponseEntity<?> addNewService(@RequestBody UserDataDto userDataDto) {
+    CustomUserDetails userDetails =
+        (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return new  ResponseEntity<>(userDataService.addNewService(userDataDto,
+        userDetails.getUser()), HttpStatus.OK);
   }
 }

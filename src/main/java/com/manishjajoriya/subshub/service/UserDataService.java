@@ -1,19 +1,24 @@
 package com.manishjajoriya.subshub.service;
 
+import com.manishjajoriya.subshub.dto.UserDataDto;
 import com.manishjajoriya.subshub.entity.UserDataEntity;
+import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.repository.UserDataRepo;
 import java.util.List;
 import java.util.UUID;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserDataService {
   private final UserDataRepo userDataRepo;
+  private final ModelMapper modelMapper;
 
   @Autowired
-  public UserDataService(UserDataRepo userDataRepo) {
+  public UserDataService(UserDataRepo userDataRepo, ModelMapper modelMapper) {
     this.userDataRepo = userDataRepo;
+    this.modelMapper = modelMapper;
   }
 
   public List<UserDataEntity> getUserData(UUID uid) {
@@ -22,5 +27,13 @@ public class UserDataService {
 
   public List<UserDataEntity> getAllUserData() {
     return userDataRepo.findAll();
+  }
+
+  public boolean addNewService(UserDataDto userDataDto, UserEntity userEntity) {
+    UserDataEntity userDataEntity = modelMapper.map(userDataDto, UserDataEntity.class);
+    userDataEntity.setDid(UUID.randomUUID());
+    userDataEntity.setUser(userEntity);
+    userDataRepo.save(userDataEntity);
+    return true;
   }
 }

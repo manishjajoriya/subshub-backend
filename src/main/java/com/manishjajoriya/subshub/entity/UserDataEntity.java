@@ -1,8 +1,8 @@
 package com.manishjajoriya.subshub.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.sql.Date;
 import java.util.UUID;
@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 public class UserDataEntity {
   @Id
   private UUID did;
+  @JsonIgnore
   @ManyToOne()
   private UserEntity user;
   private String subscriptionProvider;
