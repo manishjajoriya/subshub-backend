@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserDataRepo extends JpaRepository<UserDataEntity, Integer> {
-  List<UserDataEntity> findByUser_Uid(UUID userUid);
+public interface UserDataRepo extends JpaRepository<UserDataEntity, UUID> {
+  List<UserDataEntity> findByUserUid(UUID userUid);
+
+  void deleteByDidAndUser_Uid(UUID did, UUID userUid);
 }

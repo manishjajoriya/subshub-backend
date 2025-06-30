@@ -4,6 +4,7 @@ import com.manishjajoriya.subshub.dto.UserDataDto;
 import com.manishjajoriya.subshub.entity.UserDataEntity;
 import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.repository.UserDataRepo;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import org.modelmapper.ModelMapper;
@@ -22,7 +23,7 @@ public class UserDataService {
   }
 
   public List<UserDataEntity> getUserData(UUID uid) {
-    return userDataRepo.findByUser_Uid(uid);
+    return userDataRepo.findByUserUid(uid);
   }
 
   public List<UserDataEntity> getAllUserData() {
@@ -30,10 +31,17 @@ public class UserDataService {
   }
 
   public boolean addNewService(UserDataDto userDataDto, UserEntity userEntity) {
+
     UserDataEntity userDataEntity = modelMapper.map(userDataDto, UserDataEntity.class);
     userDataEntity.setDid(UUID.randomUUID());
     userDataEntity.setUser(userEntity);
     userDataRepo.save(userDataEntity);
+    return true;
+  }
+
+  @Transactional
+  public boolean deleteService(UUID did, UUID uid) {
+    userDataRepo.deleteByDidAndUser_Uid(did, uid);
     return true;
   }
 }
