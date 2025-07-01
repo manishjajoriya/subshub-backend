@@ -11,4 +11,6 @@ public interface UserDataRepo extends JpaRepository<UserDataEntity, UUID> {
   List<UserDataEntity> findByUserUid(UUID userUid);
 
   void deleteByDidAndUser_Uid(UUID did, UUID userUid);
+
+  boolean existsByDidAndUser_Uid(UUID did, UUID userUid);
 }

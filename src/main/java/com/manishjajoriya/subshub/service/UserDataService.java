@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,8 +42,11 @@ public class UserDataService {
   }
 
   @Transactional
-  public boolean deleteService(UUID did, UUID uid) {
-    userDataRepo.deleteByDidAndUser_Uid(did, uid);
-    return true;
+  public ResponseEntity<?> deleteService(UUID did, UUID uid) {
+    if (userDataRepo.existsByDidAndUser_Uid(did, uid)) {
+      userDataRepo.deleteByDidAndUser_Uid(did, uid);
+      return new ResponseEntity<>("service deleted", HttpStatus.OK);
+    }
+    return new ResponseEntity<>("service not found", HttpStatus.NOT_FOUND);
   }
 }
