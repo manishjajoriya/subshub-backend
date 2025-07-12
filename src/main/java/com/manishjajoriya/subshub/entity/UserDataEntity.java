@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,10 +29,11 @@ public class UserDataEntity {
   private String category;
   private String currency;
   private String iconUrl;
-  private Date startBillingDate;
-  private Date nextBillingDate;
+  private LocalDateTime startBillingDate;
+  private LocalDateTime nextBillingDate;
   private int months;
   private boolean isActive = true;
   private boolean isDeleted = false;
   private boolean isCanceled = false;
+  private LocalDateTime timeStamp =  LocalDateTime.now();
 }
