@@ -32,13 +32,13 @@ public class UserDataService {
     return userDataRepo.findAll();
   }
 
-  public boolean addNewService(UserDataDto userDataDto, UserEntity userEntity) {
+  public UserDataEntity addNewService(UserDataDto userDataDto, UserEntity userEntity) {
 
     UserDataEntity userDataEntity = modelMapper.map(userDataDto, UserDataEntity.class);
     userDataEntity.setDid(UUID.randomUUID());
     userDataEntity.setUser(userEntity);
     userDataRepo.save(userDataEntity);
-    return true;
+    return userDataEntity;
   }
 
   @Transactional
