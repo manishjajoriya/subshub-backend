@@ -49,6 +49,6 @@ public class UserController {
   public ResponseEntity<?> deleteService(@RequestParam UUID did) {
     CustomUserDetails customUserDetails =
         (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return ResponseEntity.ok(userDataService.deleteService(did, customUserDetails.getUid()));
+    return userDataService.deleteService(did, customUserDetails.getUid());
   }
 }
