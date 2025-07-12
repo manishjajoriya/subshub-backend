@@ -30,7 +30,9 @@ public class JwtFilter extends OncePerRequestFilter {
     String authorizationHeader = request.getHeader("Authorization");
     String uid = null;
     String jwt = null;
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+    String path = request.getServletPath();
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ") && path.contains(
+        "/public")) {
       jwt = authorizationHeader.substring(7);
       uid = jwtUtil.extractUsername(jwt);
 
@@ -38,8 +40,9 @@ public class JwtFilter extends OncePerRequestFilter {
         CustomUserDetails userDetail =
             (CustomUserDetails) customUserDetailsService.loadUserById(UUID.fromString(uid));
         if (jwtUtil.validateToken(jwt)) {
-          UsernamePasswordAuthenticationToken auth = new
-              UsernamePasswordAuthenticationToken(userDetail, null, userDetail.getAuthorities());
+          UsernamePasswordAuthenticationToken auth =
+              new UsernamePasswordAuthenticationToken(userDetail, null,
+                  userDetail.getAuthorities());
           auth.setDetails(userDetail);
           SecurityContextHolder.getContext().setAuthentication(auth);
         }
