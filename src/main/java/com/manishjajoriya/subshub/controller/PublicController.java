@@ -5,6 +5,7 @@ import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.service.UserService;
 import com.manishjajoriya.subshub.utils.JwtUtil;
 import jakarta.validation.Valid;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,15 @@ import org.springframework.security.authentication.password.CompromisedPasswordC
 import org.springframework.security.authentication.password.CompromisedPasswordDecision;
 import org.springframework.security.authentication.password.CompromisedPasswordException;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/public")
 @Slf4j
@@ -61,10 +65,11 @@ public class PublicController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<?> login(@RequestBody UserEntity user) {
+  public ResponseEntity<?> login(@RequestParam("email") String email,
+                                 @RequestParam("password") String password) {
     try {
       Authentication auth = authenticationManager.authenticate(
-          new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+          new UsernamePasswordAuthenticationToken(email, password));
 
       CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
       String uuid = customUserDetails.getUid().toString();
@@ -72,7 +77,8 @@ public class PublicController {
       return ResponseEntity.ok(jwt);
     } catch (Exception e) {
       log.error("Exception occur while createAuthenticationToken ", e);
-      return new ResponseEntity<>("Incorrect username or password", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(Map.of("message", "Incorrect username or password"),
+          HttpStatus.BAD_REQUEST);
     }
   }
 }
