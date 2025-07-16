@@ -28,11 +28,11 @@ public class JwtFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                   FilterChain filterChain) throws ServletException, IOException {
     String authorizationHeader = request.getHeader("Authorization");
-    String uid = null;
-    String jwt = null;
+    String uid;
+    String jwt;
     String path = request.getServletPath();
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ") && path.contains(
-        "/public")) {
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")
+        && !path.contains("/public")) {
       jwt = authorizationHeader.substring(7);
       uid = jwtUtil.extractUsername(jwt);
 
