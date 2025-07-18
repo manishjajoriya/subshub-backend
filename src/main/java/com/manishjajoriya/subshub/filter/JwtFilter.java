@@ -31,8 +31,9 @@ public class JwtFilter extends OncePerRequestFilter {
     String uid;
     String jwt;
     String path = request.getServletPath();
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")
-        && !path.contains("/public")) {
+    if (authorizationHeader != null && !path.contains("/public")
+        && authorizationHeader.startsWith("Bearer ")
+    ) {
       jwt = authorizationHeader.substring(7);
       uid = jwtUtil.extractUsername(jwt);
 

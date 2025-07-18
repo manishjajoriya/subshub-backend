@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 public class JwtUtil {
 
   @Value("${JWT_SECRET}")
-  private String secretKey;
+  private static String secretKey;
+
+  private static final long DEFAULT_TOKEN_EXPIRATION_TIME = 1000L * 60 * 60 * 24 * 30;
 
   private SecretKey getSigningKey() {
     return Keys.hmacShaKeyFor(secretKey.getBytes());
@@ -54,7 +56,7 @@ public class JwtUtil {
         .and()
         .issuedAt(new Date(System.currentTimeMillis()))
         .expiration(
-            new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+            new Date(System.currentTimeMillis() + DEFAULT_TOKEN_EXPIRATION_TIME))
         .signWith(getSigningKey())
         .compact();
   }
