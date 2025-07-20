@@ -1,6 +1,7 @@
 package com.manishjajoriya.subshub.dto;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class UserDataDto {
   private String category;
   private String currency;
   private String iconUrl;
-  private Date startBillingDate;
-  private Date nextBillingDate;
+  private LocalDateTime startBillingDate;
+  private LocalDateTime nextBillingDate;
   private int months;
 }
