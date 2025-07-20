@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class JwtUtil {
 
   @Value("${JWT_SECRET}")
-  private static String secretKey;
+  private String secretKey;
 
   private static final long DEFAULT_TOKEN_EXPIRATION_TIME = 1000L * 60 * 60 * 24 * 30;
 
