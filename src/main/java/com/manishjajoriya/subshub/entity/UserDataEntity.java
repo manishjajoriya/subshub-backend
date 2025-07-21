@@ -24,7 +24,7 @@ public class UserDataEntity {
   @ManyToOne()
   private UserEntity user;
   private String subscriptionProvider;
-  private String subscriptionPrice;
+  private double subscriptionPrice;
   private String category;
   private String currency;
   private String iconUrl;
