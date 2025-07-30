@@ -51,4 +51,12 @@ public class UserController {
         (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     return userDataService.deleteService(did, customUserDetails.getUid());
   }
+
+  @GetMapping("/last-update")
+  public ResponseEntity<?> lastUpdate() {
+    CustomUserDetails customUserDetails =
+        (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    return ResponseEntity.ok(userDataService.lastUpdate(customUserDetails));
+  }
 }

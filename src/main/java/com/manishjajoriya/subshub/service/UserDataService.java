@@ -1,18 +1,22 @@
 package com.manishjajoriya.subshub.service;
 
+import com.manishjajoriya.subshub.config.CustomUserDetails;
 import com.manishjajoriya.subshub.dto.UserDataDto;
 import com.manishjajoriya.subshub.entity.UserDataEntity;
 import com.manishjajoriya.subshub.entity.UserEntity;
 import com.manishjajoriya.subshub.repository.UserDataRepo;
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserDataService {
   private final UserDataRepo userDataRepo;
@@ -48,5 +52,11 @@ public class UserDataService {
       return new ResponseEntity<>("service deleted", HttpStatus.OK);
     }
     return new ResponseEntity<>("service not found", HttpStatus.NOT_FOUND);
+  }
+
+  public LocalDateTime lastUpdate(CustomUserDetails userDetails) {
+    UserDataEntity userdata = userDataRepo.findTopByUser_UidOrderByTimeStamp(userDetails.getUid());
+    System.out.println(userdata);
+    return userdata.getTimeStamp();
   }
 }
