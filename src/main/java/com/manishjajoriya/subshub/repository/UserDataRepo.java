@@ -15,5 +15,5 @@ public interface UserDataRepo extends JpaRepository<UserDataEntity, UUID> {
 
   boolean existsByDidAndUser_Uid(UUID did, UUID userUid);
 
-  UserDataEntity findTopByUser_UidOrderByTimeStamp(UUID userUid);
+  UserDataEntity findTopByUser_UidOrderByTimeStampDesc(UUID userUid);
 }

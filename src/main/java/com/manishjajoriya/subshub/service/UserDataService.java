@@ -55,7 +55,8 @@ public class UserDataService {
   }
 
   public LocalDateTime lastUpdate(CustomUserDetails userDetails) {
-    UserDataEntity userdata = userDataRepo.findTopByUser_UidOrderByTimeStamp(userDetails.getUid());
+    UserDataEntity userdata =
+        userDataRepo.findTopByUser_UidOrderByTimeStampDesc(userDetails.getUid());
     return userdata.getTimeStamp();
   }
 }
